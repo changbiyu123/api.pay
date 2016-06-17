@@ -1,0 +1,12 @@
+php /var/www/guidesky.com/public_html/protected/yiic cron
+
+
+php /var/www/guidesky.com/public_html/cron.php test2
+
+
+
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+* * * * * php /var/www/guidesky.com/public_html/protected/yiic test example1
+1 * * * * php /var/www/guidesky.com/public_html/cron.php test2
+1 * * * * env > /tmp/env.output

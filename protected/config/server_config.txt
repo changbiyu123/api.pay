@@ -1,0 +1,8 @@
+==  php ==
+upload_max_size=16M;
+post_max_size=16M;
+
+== nginx ==
+client_max_body_size=16M;
+client_header_timeout=300s;
+client_body_timeout=300s;
