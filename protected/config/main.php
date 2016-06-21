@@ -7,7 +7,7 @@
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => '名医主刀',
-    'defaultController' => 'site',
+    'defaultController' => 'home',
     // preloading 'log' component
     'preload' => array('log'),
     // application default language.
@@ -19,53 +19,10 @@ return array(
     'import' => array(
         'application.models.*',
         'application.components.*',
-        'application.imodels.*', //@DELETE
-        'application.apiservices.*',
-        'application.apiservices.v9.*',
-        'application.apiservices.v8.*',
-        'application.apiservices.v7.*',
-        'application.models.base.*',
-        'application.models.core.*',
-        'application.models.region.*',
-        'application.models.site.*',
-        'application.models.user.*',
-        'application.models.auth.*',
-        'application.models.email.*',
-        'application.models.faculty.*', //@DELETE
-        'application.models.doctor.*',
-        'application.models.expertteam.*',
-        'application.models.medicalrecord.*', //@DELETE
-        'application.models.hospital.*',
-        'application.models.disease.*',
-        'application.models.event.*',
-        'application.models.sales.*',
-        'application.models.booking.*',
-        'application.models.payment.*', //@DELETE
-        'application.models.app.*',
-        'application.models.patient.*',
-        'application.models.messagequeue.*',
         //    'application.sdk.alipaydirect.*',
         'ext.mail.YiiMailMessage',
-        'application.extensions.EValidators.*',
-        'application.modules.translate.TranslateModule',
-        'application.extensions.yiidebugtb.*',
     ),
     'modules' => array(
-        'fileupload',
-        'mobiledoctor',
-        'mobile',
-        'translate', //manages translation message.
-        'admin', //admin module.
-        'weixinpub',
-        /** user module * */
-        /*   'user' => array(
-          'tableUsers' => 'tbl_users',
-          'tableProfiles' => 'tbl_profiles',
-          'tableProfileFields' => 'tbl_profiles_fields',
-          ),
-         * 
-         */
-        // uncomment the following to enable the Gii tool
         'gii' => array(
             'class' => 'system.gii.GiiModule',
             'password' => 'password',
@@ -78,37 +35,6 @@ return array(
         'mobileDetect' => array(
             'class' => 'ext.MobileDetect.MobileDetect'
         ),
-        'cache'=>array(
-            'class'=>'system.caching.CMemCache',
-            'servers'=>array(
-                array(
-                    'host'=>'120.26.107.48',
-                    'port'=>12000,
-                    'weight'=>60,
-                ),
-            ),
-        ),
-        //Translation messages stored in db table.
-        /*
-          'messages' => array(
-          'class' => 'CDbMessageSource',
-          'onMissingTranslation' => array('TranslateModule', 'missingTranslation'),
-          'sourceMessageTable' => 'translate_source_message',
-          'translatedMessageTable' => 'translate_message',
-          'language' => 'zh_cn',
-          ),
-         */
-        //Manages translation messages.
-        /*
-          'translate' => array(//if you name your component something else change TranslateModule
-          'class' => 'translate.components.MPTranslate',
-          //any avaliable options here
-          'acceptedLanguages' => array(
-          'zh_cn' => '中文',
-          'en' => 'English',
-          ),
-          ),
-         */
         'image' => array(
             'class' => 'application.extensions.image.CImageComponent',
             // GD or ImageMagick
@@ -148,33 +74,6 @@ return array(
             'caseSensitive' => false,
             'showScriptName' => false,
             'rules' => array(
-                // api url.
-                //array('api/payment', 'pattern'=>'api/<action:\w+>', 'verb'=>'POST'),
-                //array('api/', 'pattern'=>'api/payment/doPay', 'verb'=>'POST'),
-                // array('api/returnPay', 'pattern'=>'api/<type:\w+>', 'verb'=>'GET'),                
-                array('api/list', 'pattern' => 'api/<model:\w+>', 'verb' => 'GET'),
-                //   array('api/view', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'GET'),
-                array('api/view', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'GET'),
-                array('api/update', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'PUT'),
-                array('api/delete', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'DELETE'),
-                array('api/create', 'pattern' => 'api/<model:\w+>', 'verb' => 'POST'),
-                
-                //api2
-                array('api2/list', 'pattern' => 'api2/<model:\w+>', 'verb' => 'GET'),
-                //   array('api/view', 'pattern' => 'api/<model:\w+>/<id:\d+>', 'verb' => 'GET'),
-                array('api2/view', 'pattern' => 'api2/<model:\w+>/<id:\d+>', 'verb' => 'GET'),
-                array('api2/update', 'pattern' => 'api2/<model:\w+>/<id:\d+>', 'verb' => 'PUT'),
-                array('api2/update', 'pattern' => 'api2/<model:\w+>/<type:\w+>/<id:\d+>', 'verb' => 'PUT'),
-                array('api2/delete', 'pattern' => 'api2/<model:\w+>/<id:\d+>', 'verb' => 'DELETE'),
-                array('api2/create', 'pattern' => 'api2/<model:\w+>', 'verb' => 'POST'),
-
-                //doctor api
-                array('apimd/list', 'pattern' => 'apimd/<model:\w+>', 'verb' => 'GET'),
-                array('apimd/view', 'pattern' => 'apimd/<model:\w+>/<id:\d+>', 'verb' => 'GET'),
-                array('apimd/update', 'pattern' => 'apimd/<model:\w+>/<id:\d+>', 'verb' => 'PUT'),
-                array('apimd/delete', 'pattern' => 'apimd/<model:\w+>/<id:\d+>', 'verb' => 'DELETE'),
-                array('apimd/create', 'pattern' => 'apimd/<model:\w+>', 'verb' => 'POST'),
-
                 '<controller:\w+>/<action:index>' => '<controller>/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
@@ -222,12 +121,6 @@ return array(
                     'logFile' => 'trace.log',
                     'levels' => 'trace',
                 ),
-                array(// configuration for the toolbar (yiidebugtb extension)
-                    'class' => 'XWebDebugRouter',
-                    'config' => 'alignLeft, opaque, runInDebug, fixedPos, collapsed, yamlStyle',
-                    'levels' => 'error, warning, trace, profile, info',
-                    'allowedIPs' => array('127.0.0.1', '::1', '192.168.1.54', '192\.168\.1[0-5]\.[0-9]{3}'),
-                ),
             /*
               array(
               // log db command in firebug.
@@ -259,18 +152,5 @@ return array(
         'adminPassword' => '9be4e9c1e40a1952d3ad23cdb9343cedce6814d8e2b031d9d775ba58a02108b0',
         'adminEmail' => 'fainqin@foxmail.com',
         //'contactEmail' => 'contactus@mingyihz.com',
-        'contactEmail' => 'clark.zhang@mingyizhudao.com',
-        // 'registerBaiduScript' => true,
-        'medicalRecordFilePath' => 'upload/mr',
-        'bookingFilePath' => 'upload/booking',
-        "doctorFilePath" => "upload/doctor/cert",
-        "patientMRFilePath" => "upload/patient/mr",
-        // 'doctorAvatar' => 'upload/doctor/avatar',
-        'baseUrl' => 'http://mingyizhudao.com',
-        'baseUrlMobile' => 'http://m.mingyizhudao.com',
-        'baseUrlApi' => 'http://api.mingyizhudao.com',
-        //'csadminEmail' => 'csadmin@mingyizhudao.com',
-        'csadminEmail' => 'clark.zhang@mingyizhudao.com',
     ),
-    'theme' => 'v5',
 );
