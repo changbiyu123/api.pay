@@ -12,7 +12,8 @@ class WechatpayController extends Controller {
     
     public function actionTest(){
         echo "12345";
-        Yii::app()->exit();
+        exit;
+        //Yii::app()->exit();
     }
     
     /**
