@@ -11,7 +11,8 @@ define("MCHID", "1346722601");
 class WechatpayController extends Controller {
     
     public function actionTest(){
-        echo APPID;
+        echo "12345";
+        Yii::app()->exit();
     }
     
     /**

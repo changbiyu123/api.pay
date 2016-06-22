@@ -144,3 +144,85 @@ in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (32)
 in D:\wamp\www\api.pay\index.php (13)
 2016/06/22 09:19:22 [trace] [system.CModule] Loading "urlManager" application component
 in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:48:35 [trace] [system.CModule] Loading "log" application component
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:48:35 [trace] [system.CModule] Loading "db" application component
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:48:35 [trace] [system.db.CDbConnection] Opening DB connection
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:48:35 [trace] [system.db.CDbCommand] Executing SQL: DELETE FROM `core_log` WHERE 0=1
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:48:35 [trace] [system.CModule] Loading "request" application component
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:48:35 [trace] [system.CModule] Loading "session" application component
+in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (28)
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:48:35 [trace] [system.db.CDbCommand] Executing SQL: DELETE FROM `core_session` WHERE expire<:expire
+in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (28)
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:48:35 [trace] [system.db.CDbCommand] Querying SQL: SELECT `data`
+FROM `core_session`
+WHERE expire>:expire AND id=:id
+in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (28)
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:48:35 [trace] [system.CModule] Loading "user" application component
+in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (32)
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:48:35 [trace] [system.CModule] Loading "urlManager" application component
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:52:36 [trace] [system.CModule] Loading "log" application component
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:52:36 [trace] [system.CModule] Loading "db" application component
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:52:36 [trace] [system.db.CDbConnection] Opening DB connection
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:52:36 [trace] [system.db.CDbCommand] Executing SQL: DELETE FROM `core_log` WHERE 0=1
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:52:36 [trace] [system.CModule] Loading "request" application component
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:52:36 [trace] [system.CModule] Loading "session" application component
+in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (28)
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:52:36 [trace] [system.db.CDbCommand] Executing SQL: DELETE FROM `core_session` WHERE expire<:expire
+in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (28)
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:52:36 [trace] [system.db.CDbCommand] Querying SQL: SELECT `data`
+FROM `core_session`
+WHERE expire>:expire AND id=:id
+in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (28)
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:52:36 [trace] [system.CModule] Loading "user" application component
+in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (32)
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:52:36 [trace] [system.CModule] Loading "urlManager" application component
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:52:36 [trace] [system.db.CDbCommand] Querying SQL: SELECT `id`
+FROM `core_session`
+WHERE id=:id
+2016/06/22 09:52:36 [trace] [system.db.CDbCommand] Executing SQL: UPDATE `core_session` SET `data`=:data, `expire`=:expire WHERE id=:id
+2016/06/22 09:57:46 [trace] [system.CModule] Loading "log" application component
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:57:46 [trace] [system.CModule] Loading "db" application component
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:57:46 [trace] [system.db.CDbConnection] Opening DB connection
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:57:46 [trace] [system.db.CDbCommand] Executing SQL: DELETE FROM `core_log` WHERE 0=1
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:57:46 [trace] [system.CModule] Loading "request" application component
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:57:46 [trace] [system.CModule] Loading "session" application component
+in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (28)
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:57:46 [trace] [system.db.CDbCommand] Executing SQL: DELETE FROM `core_session` WHERE expire<:expire
+in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (28)
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:57:46 [trace] [system.db.CDbCommand] Querying SQL: SELECT `data`
+FROM `core_session`
+WHERE expire>:expire AND id=:id
+in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (28)
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:57:46 [trace] [system.CModule] Loading "user" application component
+in D:\wamp\www\api.pay\protected\components\ApplicationConfigBehavior.php (32)
+in D:\wamp\www\api.pay\index.php (13)
+2016/06/22 09:57:46 [trace] [system.CModule] Loading "urlManager" application component
+in D:\wamp\www\api.pay\index.php (13)
