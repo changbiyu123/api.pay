@@ -11,7 +11,7 @@ define("MCHID", "1346722601");
 class WechatpayController extends Controller {
     
     public function actionTest(){
-        echo "12345";
+        echo 12345;
         exit;
         //Yii::app()->exit();
     }
