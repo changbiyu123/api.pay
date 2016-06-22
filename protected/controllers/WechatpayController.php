@@ -63,8 +63,8 @@ class WechatpayController extends Controller {
     */
     public function GetJsApiParameters($UnifiedOrderResult){
         if(!array_key_exists("appid", $UnifiedOrderResult) || !array_key_exists("prepay_id", $UnifiedOrderResult) || $UnifiedOrderResult['prepay_id'] == ""){
-            echo "接口返回异常";
-            exit();
+            echo var_export($UnifiedOrderResult);
+            Yii::app()->end();
         }
         $jsapi = new WxPayJsApiPay();
         $jsapi->SetAppid($UnifiedOrderResult["appid"]);
