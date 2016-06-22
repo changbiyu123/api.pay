@@ -7,6 +7,7 @@
  * @author zhongtw
  */
 require_once "WxPayException.php";
+require_once "WxPayConfig.php";
 class WxPayApi {
 
     

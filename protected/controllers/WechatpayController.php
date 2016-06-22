@@ -8,6 +8,7 @@
  */
 define("APPID", "wx7d25d315fe1ea4dc");
 define("MCHID", "1346722601");
+require_once 'protected/config/WxPayApi.php';
 class WechatpayController extends Controller {
     
     public function actionTest(){
@@ -61,7 +62,7 @@ class WechatpayController extends Controller {
     */
     public function GetJsApiParameters($UnifiedOrderResult){
         if(!array_key_exists("appid", $UnifiedOrderResult) || !array_key_exists("prepay_id", $UnifiedOrderResult) || $UnifiedOrderResult['prepay_id'] == ""){
-            WeixinpubLog::log('参数错误', 'error', __METHOD__);
+            echo "接口返回异常";
             exit();
         }
         $jsapi = new WxPayJsApiPay();
