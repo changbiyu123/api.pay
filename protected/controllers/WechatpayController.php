@@ -9,6 +9,7 @@
 define("APPID", "wx7d25d315fe1ea4dc");
 define("MCHID", "1346722601");
 require_once 'protected/config/WxPayApi.php';
+header("Content-type: text/html; charset=utf-8");
 class WechatpayController extends Controller {
     
     public function actionTest(){
@@ -44,7 +45,7 @@ class WechatpayController extends Controller {
         $jsApiParameters = $this->GetJsApiParameters($order);
         
         $output = new stdClass();
-        $output->rspStr = $jsApiParameters;
+        $output->rspStr = $jsApiParameters;        
         echo $this->renderJsonOutput($output);
         Yii::app()->end();
         
