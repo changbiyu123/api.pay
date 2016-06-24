@@ -24,6 +24,9 @@ class WxPayApi {
         
         //检测必填参数
         if(!$inputObj->IsOut_trade_noSet()) {
+            echo '缺少统一支付接口必填参数out_trade_no！';
+            Yii::app()->end();
+            
                 throw new WxPayException("缺少统一支付接口必填参数out_trade_no！");
         }else if(!$inputObj->IsBodySet()){
                 throw new WxPayException("缺少统一支付接口必填参数body！");
@@ -52,7 +55,8 @@ class WxPayApi {
         //签名
         $inputObj->SetSign();
         $xml = $inputObj->ToXml();
-
+        //echo var_export($inputObj);//测试用
+        //Yii:app()->end();
         $startTimeStamp = self::getMillisecond();//请求开始时间
         $response = self::postXmlCurl($xml, $url, false, $timeOut);
         $result = WxPayResults::Init($response);

@@ -48,8 +48,6 @@ class WechatpayController extends Controller {
         $output->rspStr = $jsApiParameters;        
         echo $this->renderJsonOutput($output);
         Yii::app()->end();
-        
-        
     }
     
     
