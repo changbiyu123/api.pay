@@ -97,10 +97,10 @@ class WxPayDataBase {
         }else if(array_key_exists('appid', $this->values)){
             $appId = $this->values['appId'];           
         }else{
+            echo '系统异常</br>';
             echo var_export($this->values);
             exit();
         }
-        //$appId = $this->values['appid'];
         $wechatAccount = new WechatAccount();
         $api_key = $wechatAccount->getByAppId($appId)->getApiKey();
         //签名步骤一：按字典序排序参数
