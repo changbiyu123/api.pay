@@ -97,7 +97,9 @@ class WxPayDataBase {
         }else if(array_key_exists('appid', $this->values)){
             $appId = $this->values['appId'];           
         }else{
-            return implode(" ",$this->values);
+            //return implode(" ",$this->values);
+            echo implode("***",$this->values);
+            exit();
         }
         $wechatAccount = new WechatAccount();
         $api_key = $wechatAccount->getByAppId($appId)->getApiKey();
