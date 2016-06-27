@@ -48,10 +48,9 @@ class WechatpayController extends Controller {
         $input->SetTrade_type("JSAPI");//交易类型
         $input->SetAppid($result->getAppId());//公众账号ID
         $input->SetMch_id($result->getMchId());//商户号
-        $api_key = $result->getApiKey();
         
         try {
-            $order = WxPayApi::unifiedOrder($input, $api_key);
+            $order = WxPayApi::unifiedOrder($input);
             $jsApiParameters = $this->GetJsApiParameters($order);
             $output->flag = 0;
             $output->info = $jsApiParameters; 

@@ -18,7 +18,7 @@ class WxPayApi {
      * @return type
      * @throws WxPayException
      */
-    public static function unifiedOrder($inputObj, $api_key, $timeOut = 6){
+    public static function unifiedOrder($inputObj, $timeOut = 6){
         
         $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         
@@ -52,7 +52,7 @@ class WxPayApi {
         //签名
         //echo $api_key;
         //exit();
-        $inputObj->SetSign($api_key);
+        $inputObj->SetSign();
         $xml = $inputObj->ToXml();
         //echo var_export($inputObj);//测试用
         //Yii:app()->end();

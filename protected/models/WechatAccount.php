@@ -133,6 +133,10 @@ class WechatAccount extends DB2ActiveRecord
             return $this->getByAttributes(array('weixinpub_id'=>$weixinpub_id));
         }
         
+        public function getByAppId($appId) {
+            return $this->getByAttributes(array('app_id'=>$appId));
+        }
+        
         public function getWeixinpubId(){
             return $this->weixinpub_id;
         }
