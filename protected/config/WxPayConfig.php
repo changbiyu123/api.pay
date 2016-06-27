@@ -50,8 +50,8 @@ class WxPayConfig {
      * 默认CURL_PROXY_HOST=0.0.0.0和CURL_PROXY_PORT=0，此时不开启代理（如有需要才设置）
      * @var unknown_type
      */
-    const CURL_PROXY_HOST = "0.0.0.0";//"10.152.18.220";
-    const CURL_PROXY_PORT = 0;//8080;
+    const CURL_PROXY_HOST = "0.0.0.0";
+    const CURL_PROXY_PORT = 0;
 
     //=======【上报信息配置】===================================
     /**

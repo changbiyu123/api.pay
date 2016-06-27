@@ -15,8 +15,8 @@ class WxPayDataBase {
     * 设置签名，详见签名生成算法
     * @param string $value 
     **/
-    public function SetSign(){
-        $sign = $this->MakeSign();
+    public function SetSign($values){
+        $sign = $this->MakeSign($values);
         $this->values['sign'] = $sign;
         return $sign;
     }
@@ -91,12 +91,13 @@ class WxPayDataBase {
      * 生成签名
      * @return 签名，本函数不覆盖sign成员变量，如要设置签名需要调用SetSign方法赋值
      */
-    public function MakeSign(){
+    public function MakeSign($values){
         //签名步骤一：按字典序排序参数
         ksort($this->values);
         $string = $this->ToUrlParams();
         //签名步骤二：在string后加入KEY
-        $string = $string . "&key=415374F6015DD52EF9AF09B40CCF334B";
+        //$string = $string . "&key=415374F6015DD52EF9AF09B40CCF334B";
+        $string = $string . "&key=" . $values;
         //签名步骤三：MD5加密
         $string = md5($string);
         //签名步骤四：所有字符转为大写

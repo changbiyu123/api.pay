@@ -18,6 +18,7 @@ return array(
     // autoloading model and component classes
     'import' => array(
         'application.models.*',
+          'application.models.base.*',
         'application.components.*',
         //    'application.sdk.alipaydirect.*',
         'ext.mail.YiiMailMessage',
