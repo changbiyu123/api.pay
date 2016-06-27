@@ -94,7 +94,7 @@ class WxPayDataBase {
     public function MakeSign(){
         if(array_key_exists('appid', $this->values)){
             $appId = $this->values['appid'];
-        }else if(array_key_exists('appId', $this->values)){
+        }else if(array_key_exists('appid', $this->values)){
             $appId = $this->values['appId'];           
         }else{
             return implode(" ",$this->values);

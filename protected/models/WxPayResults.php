@@ -2,9 +2,9 @@
 
 
 /**
- * Description of WxPayResults
+ * 微信统一订单接口返回数据
  *
- * @author Administrator
+ * @author zhongtw
  */
 class WxPayResults extends WxPayDataBase {
 
