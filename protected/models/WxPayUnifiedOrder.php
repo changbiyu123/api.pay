@@ -61,28 +61,7 @@ class WxPayUnifiedOrder extends WxPayDataBase {
     public function IsMch_idSet()
     {
             return array_key_exists('mch_id', $this->values);
-    }
-
-    /**
-     * 商户秘钥
-     * @param type $value
-     * @return type
-     */
-    public function SetApi_key($value) 
-    {
-            $this->values['api_key'] = $value;
-    }
-    
-    public function GetApi_key()
-    {
-            return $this->values['api_key'];
-    }
-    
-    public function IsApi_keySet()
-    {
-            return array_key_exists('api_key', $this->values);
-    }
-    
+    }  
     
     /**
     * 设置微信支付分配的终端设备号，商户自定义

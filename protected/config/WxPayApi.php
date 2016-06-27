@@ -18,7 +18,7 @@ class WxPayApi {
      * @return type
      * @throws WxPayException
      */
-    public static function unifiedOrder($inputObj, $timeOut = 6){
+    public static function unifiedOrder($inputObj, $api_key, $timeOut = 6){
         
         $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         

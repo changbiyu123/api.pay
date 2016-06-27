@@ -16,8 +16,6 @@ class WxPayDataBase {
     * @param string $value 
     **/
     public function SetSign($api_key){
-        //echo $api_key;
-        //exit();
         $sign = $this->MakeSign($api_key);
         $this->values['sign'] = $sign;
         return $sign;
