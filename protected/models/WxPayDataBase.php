@@ -97,9 +97,7 @@ class WxPayDataBase {
         }else if(array_key_exists('appId', $this->values)){
             $appId = $this->values['appId'];           
         }else{
-            echo "系统异常</br>";
-            echo var_export($this->values);
-            exit();
+            return implode(" ",$this->values);
         }
         $wechatAccount = new WechatAccount();
         $api_key = $wechatAccount->getByAppId($appId)->getApiKey();
@@ -107,7 +105,6 @@ class WxPayDataBase {
         ksort($this->values);
         $string = $this->ToUrlParams();
         //签名步骤二：在string后加入KEY
-        //$string = $string . "&key=415374F6015DD52EF9AF09B40CCF334B";
         $string = $string . "&key=" . $api_key;
         //签名步骤三：MD5加密
         $string = md5($string);

@@ -49,17 +49,11 @@ class WxPayApi {
         $inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip	   	    
         $inputObj->SetNonce_str(self::getNonceStr());//随机字符串
 
-        //签名
-        //echo $api_key;
-        //exit();
         $inputObj->SetSign();
         $xml = $inputObj->ToXml();
-        //echo var_export($inputObj);//测试用
-        //Yii:app()->end();
         $startTimeStamp = self::getMillisecond();//请求开始时间
         $response = self::postXmlCurl($xml, $url, false, $timeOut);
         $result = WxPayResults::Init($response);
-        //self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
 
         return $result;
     }  
@@ -143,71 +137,6 @@ class WxPayApi {
             throw new WxPayException("curl出错，错误码:$error");
         }
     }
-    
-    
-    /**
-     * 
-     * 上报数据， 上报的时候将屏蔽所有异常流程
-     * @param string $usrl
-     * @param int $startTimeStamp
-     * @param array $data
-     */
-    private static function reportCostTime($url, $startTimeStamp, $data)
-    {
-            //如果不需要上报数据
-            if(WxPayConfig::REPORT_LEVENL == 0){
-                    return;
-            } 
-            //如果仅失败上报
-            if(WxPayConfig::REPORT_LEVENL == 1 &&
-                     array_key_exists("return_code", $data) &&
-                     $data["return_code"] == "SUCCESS" &&
-                     array_key_exists("result_code", $data) &&
-                     $data["result_code"] == "SUCCESS")
-             {
-                    return;
-             }
 
-            //上报逻辑
-            $endTimeStamp = self::getMillisecond();
-            $objInput = new WxPayReport();
-            $objInput->SetInterface_url($url);
-            $objInput->SetExecute_time_($endTimeStamp - $startTimeStamp);
-            //返回状态码
-            if(array_key_exists("return_code", $data)){
-                    $objInput->SetReturn_code($data["return_code"]);
-            }
-            //返回信息
-            if(array_key_exists("return_msg", $data)){
-                    $objInput->SetReturn_msg($data["return_msg"]);
-            }
-            //业务结果
-            if(array_key_exists("result_code", $data)){
-                    $objInput->SetResult_code($data["result_code"]);
-            }
-            //错误代码
-            if(array_key_exists("err_code", $data)){
-                    $objInput->SetErr_code($data["err_code"]);
-            }
-            //错误代码描述
-            if(array_key_exists("err_code_des", $data)){
-                    $objInput->SetErr_code_des($data["err_code_des"]);
-            }
-            //商户订单号
-            if(array_key_exists("out_trade_no", $data)){
-                    $objInput->SetOut_trade_no($data["out_trade_no"]);
-            }
-            //设备号
-            if(array_key_exists("device_info", $data)){
-                    $objInput->SetDevice_info($data["device_info"]);
-            }
-
-            try{
-                    self::report($objInput);
-            } catch (WxPayException $e){
-                    //不做任何处理
-            }
-    }
- 
    
 }

@@ -10,10 +10,6 @@ require_once 'protected/config/WxPayApi.php';
 header("Content-type: text/html; charset=utf-8");
 class WechatpayController extends Controller {
     
-    public function actionTest(){
-        echo 12345;
-        Yii::app()->end();
-    }
     
     /**
      * 微信公众号支付
@@ -33,11 +29,6 @@ class WechatpayController extends Controller {
         $weixinpub_id = $reqJson['weixinpub_id'];
         $wechatAccount = new WechatAccount();
         $result = $wechatAccount->getByPubId($weixinpub_id);
-
-        //$out_trade_no = $reqJson['out_trade_no'];//商户系统内部的订单号,32个字符内、可包含字母
-        //$total_fee = $reqJson['total_fee'];//订单总金额，单位为分
-        //$openid = $reqJson['openid'];//trade_type=JSAPI，此参数必传，用户在商户appid下的唯一标识
-        //$body = $reqJson['body'];//商品或支付单简要描述
 
         $input = new WxPayUnifiedOrder();
         $input->SetBody($reqJson['body']);//商品或支付单简要描述
