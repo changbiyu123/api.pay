@@ -94,12 +94,10 @@ class WxPayDataBase {
     public function MakeSign(){
         if(array_key_exists('appid', $this->values)){
             $appId = $this->values['appid'];
-        }else if(array_key_exists('appid', $this->values)){
+        }else if(array_key_exists('appId', $this->values)){
             $appId = $this->values['appId'];           
         }else{
-            //return implode(" ",$this->values);
-            echo implode("***",$this->values);
-            exit();
+            return implode("|",$this->values);
         }
         $wechatAccount = new WechatAccount();
         $api_key = $wechatAccount->getByAppId($appId)->getApiKey();
