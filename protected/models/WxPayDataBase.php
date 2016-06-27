@@ -92,6 +92,7 @@ class WxPayDataBase {
      * @return 签名，本函数不覆盖sign成员变量，如要设置签名需要调用SetSign方法赋值
      */
     public function MakeSign(){
+        echo var_export($this->values);
         $appId = $this->values['appid'];
         $wechatAccount = new WechatAccount();
         $api_key = $wechatAccount->getByAppId($appId)->getApiKey();
