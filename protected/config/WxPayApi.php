@@ -50,7 +50,9 @@ class WxPayApi {
         $inputObj->SetNonce_str(self::getNonceStr());//随机字符串
 
         //签名
-        $inputObj->SetSign($inputObj->getApi_key());
+        //echo $api_key;
+        //exit();
+        $inputObj->SetSign($api_key);
         $xml = $inputObj->ToXml();
         //echo var_export($inputObj);//测试用
         //Yii:app()->end();
