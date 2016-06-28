@@ -53,9 +53,56 @@ class WechatpayController extends Controller {
         } catch (Exception $exc) {
             $output->flag = 1;
             $output->info = 'system exceptions';
-        }
-        
+        }        
         return $this->renderJsonOutput($output);
+    }
+    
+    
+    /**
+     * 微信扫码支付
+     * 采用模式二，二维码有效时间为2小时
+     */
+    public function actionScancodepay() {
+        $output = new stdClass();
+        
+        $reqStr = isset($GLOBALS['HTTP_RAW_POST_DATA']) ? $GLOBALS['HTTP_RAW_POST_DATA'] : file_get_contents("php://input");
+        $reqJson = json_decode($reqStr, true);       
+        if(!isset($reqJson['weixinpub_id']) || !isset($reqJson['out_trade_no']) || !isset($reqJson['total_fee']) || !isset($reqJson['product_id']) || !isset($reqJson['body'])){
+            $output->flag = 1;
+            $output->info = 'missing payment parameters';
+            return $this->renderJsonOutput($output);
+        }
+        try{
+            $input = new WxPayUnifiedOrder();
+
+            $weixinpub_id = $reqJson['weixinpub_id'];
+            $wechatAccount = new WechatAccount();
+            $result = $wechatAccount->getByPubId($weixinpub_id);
+            if(!isset($result)){
+                $output->flag = 1;
+                $output->info = '微信号不存在';
+                return $this->renderJsonOutput($output);
+            }
+            $input->SetAppid($result->getAppId());//公众账号ID
+            $input->SetMch_id($result->getMchId());//商户号
+
+            $input->SetBody($reqJson['body']);//商品或支付单简要描述
+            $input->SetOut_trade_no($reqJson['out_trade_no']);//商户系统内部的订单号,32个字符内、可包含字母
+            $input->SetTotal_fee($reqJson['total_fee']);//订单总金额，单位为分
+            $input->SetProduct_id($reqJson['product_id']);//trade_type=NATIVE，此参数必传。此id为二维码中包含的商品ID，商户自行定义。
+
+            $input->SetNotify_url("http://".$_SERVER['HTTP_HOST']."/weixinpub/wechatpay/callback");//接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。
+            $input->SetTrade_type("NATIVE");//交易类型
+
+            $result = WxPayApi::unifiedOrder($input);        
+            $url = $result["code_url"];
+            $output->flag = 0;
+            $output->info = $url;
+        } catch (Exception $exc) {
+            $output->flag = 1;
+            $output->info = 'system exceptions';
+        }
+        return $this->renderJsonOutput($output);		
     }
     
     
