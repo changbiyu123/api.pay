@@ -94,7 +94,9 @@ class WechatpayController extends Controller {
             $input->SetNotify_url("http://".$_SERVER['HTTP_HOST']."/weixinpub/wechatpay/callback");//接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。
             $input->SetTrade_type("NATIVE");//交易类型
 
-            $result = WxPayApi::unifiedOrder($input);        
+            $result = WxPayApi::unifiedOrder($input);  
+            echo var_export($result);
+            exit();
             $url = $result["code_url"];
             $output->flag = 0;
             $output->info = $url;
