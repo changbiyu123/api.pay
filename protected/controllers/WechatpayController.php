@@ -102,10 +102,10 @@ class WechatpayController extends Controller {
             }else if(array_key_exists('err_code_des', $result)){
                 $err_code_des = $result["err_code_des"];
                 $output->flag = 1;
-                $output->info = 'system exceptions';
+                $output->info = $err_code_des;
             }else{
                 $output->flag = 1;
-                $output->info = $err_code_des;
+                $output->info = 'system exceptions';
             }
             
         } catch (Exception $exc) {
