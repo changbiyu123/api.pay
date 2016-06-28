@@ -95,11 +95,19 @@ class WechatpayController extends Controller {
             $input->SetTrade_type("NATIVE");//交易类型
 
             $result = WxPayApi::unifiedOrder($input);  
-            echo var_export($result);
-            exit();
-            $url = $result["code_url"];
-            $output->flag = 0;
-            $output->info = $url;
+            if(array_key_exists('code_url', $result)){
+                $url = $result["code_url"];
+                $output->flag = 0;
+                $output->info = $url;
+            }else if(array_key_exists('err_code_des', $result)){
+                $err_code_des = $result["err_code_des"];
+                $output->flag = 1;
+                $output->info = 'system exceptions';
+            }else{
+                $output->flag = 1;
+                $output->info = $err_code_des;
+            }
+            
         } catch (Exception $exc) {
             $output->flag = 1;
             $output->info = 'system exceptions';
