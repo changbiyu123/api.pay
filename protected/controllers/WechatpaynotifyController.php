@@ -5,7 +5,7 @@
  *
  * @author zhongtw
  */
-class Wechatpaynotify {
+class WechatpaynotifyController extends Controller {
     
     
     /**
@@ -31,7 +31,7 @@ class Wechatpaynotify {
         Yii::app()->end();
     }
     
-        /**
+    /**
      * 微信支付签名算法
      * @param type $arr
      */
