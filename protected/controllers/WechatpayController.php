@@ -123,8 +123,7 @@ class WechatpayController extends Controller {
     */
     public function GetJsApiParameters($UnifiedOrderResult){
         if(!array_key_exists("appid", $UnifiedOrderResult) || !array_key_exists("prepay_id", $UnifiedOrderResult) || $UnifiedOrderResult['prepay_id'] == ""){
-            //return var_export($UnifiedOrderResult);
-            return '返回异常';
+            return json_encode($UnifiedOrderResult);
         }
         $jsapi = new WxPayJsApiPay();
         $jsapi->SetAppid($UnifiedOrderResult["appid"]);
