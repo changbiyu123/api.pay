@@ -25,31 +25,30 @@ class WechatpayController extends Controller {
             return $this->renderJsonOutput($output);
         }
         
+        $input = new WxPayUnifiedOrder();
+        //根据微信账号获取微信基本信息
+        $weixinpub_id = $reqJson['weixinpub_id'];
+        $wechatAccount = new WechatAccount();
+        $result = $wechatAccount->getByPubId($weixinpub_id);
+        if(!isset($result)){
+            $output->flag = 1;
+            $output->info = '微信号不存在';
+            return $this->renderJsonOutput($output);
+        }else if(!isset($result->getAppId()) || !isset($result->getMchId())){
+            $output->flag = 1;
+            $output->info = '缺少商户信息';
+            return $this->renderJsonOutput($output);
+        }
+        $input->SetAppid($result->getAppId());//公众账号ID
+        $input->SetMch_id($result->getMchId());//商户号
+
+        $input->SetBody($reqJson['body']);//商品或支付单简要描述
+        $input->SetOut_trade_no($reqJson['out_trade_no']);//商户系统内部的订单号,32个字符内、可包含字母
+        $input->SetTotal_fee($reqJson['total_fee']);//订单总金额，单位为分
+        $input->SetOpenid($reqJson['openid']);//trade_type=JSAPI，此参数必传，用户在商户appid下的唯一标识        
+        $input->SetNotify_url("http://".$_SERVER['HTTP_HOST']."/wechatpaynotify/callback");//接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。
+        $input->SetTrade_type("JSAPI");//交易类型
         try{
-            $input = new WxPayUnifiedOrder();
-            //根据微信账号获取微信基本信息
-            $weixinpub_id = $reqJson['weixinpub_id'];
-            $wechatAccount = new WechatAccount();
-            $result = $wechatAccount->getByPubId($weixinpub_id);
-            if(!isset($result)){
-                $output->flag = 1;
-                $output->info = '微信号不存在';
-                return $this->renderJsonOutput($output);
-            }else if(!isset($result->getAppId()) || !isset($result->getMchId())){
-                $output->flag = 1;
-                $output->info = '缺少商户信息';
-                return $this->renderJsonOutput($output);
-            }
-            $input->SetAppid($result->getAppId());//公众账号ID
-            $input->SetMch_id($result->getMchId());//商户号
-
-            $input->SetBody($reqJson['body']);//商品或支付单简要描述
-            $input->SetOut_trade_no($reqJson['out_trade_no']);//商户系统内部的订单号,32个字符内、可包含字母
-            $input->SetTotal_fee($reqJson['total_fee']);//订单总金额，单位为分
-            $input->SetOpenid($reqJson['openid']);//trade_type=JSAPI，此参数必传，用户在商户appid下的唯一标识        
-            $input->SetNotify_url("http://".$_SERVER['HTTP_HOST']."/wechatpaynotify/callback");//接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。
-            $input->SetTrade_type("JSAPI");//交易类型
-
             $order = WxPayApi::unifiedOrder($input);
             $jsApiParameters = $this->GetJsApiParameters($order);
             if(!is_array($jsApiParameters) || array_key_exists($jsApiParameters, 'return_msg')){//返回信息，如果 return_msg 非空，则表明接口返回错误
