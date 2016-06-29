@@ -35,7 +35,7 @@ class WechatpayController extends Controller {
                 $output->flag = 1;
                 $output->info = '微信号不存在';
                 return $this->renderJsonOutput($output);
-            }else if(!set($result->getAppId()) || !set($result->getMchId())){
+            }else if(!isset($result->getAppId()) || !isset($result->getMchId())){
                 $output->flag = 1;
                 $output->info = '缺少商户信息';
                 return $this->renderJsonOutput($output);
