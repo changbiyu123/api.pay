@@ -35,6 +35,10 @@ class WechatpayController extends Controller {
                 $output->flag = 1;
                 $output->info = '微信号不存在';
                 return $this->renderJsonOutput($output);
+            }else if(!set($result->getAppId()) || !set($result->getMchId())){
+                $output->flag = 1;
+                $output->info = '缺少商户信息';
+                return $this->renderJsonOutput($output);
             }
             $input->SetAppid($result->getAppId());//公众账号ID
             $input->SetMch_id($result->getMchId());//商户号
@@ -48,8 +52,12 @@ class WechatpayController extends Controller {
 
             $order = WxPayApi::unifiedOrder($input);
             $jsApiParameters = $this->GetJsApiParameters($order);
-            $output->flag = 0;
-            $output->info = $jsApiParameters; 
+            if(!is_array($jsApiParameters) || array_key_exists($jsApiParameters, 'return_msg')){//返回信息，如果 return_msg 非空，则表明接口返回错误
+                $output->flag = 1;
+            }else{
+                $output->flag = 0;
+            }
+            $output->info = json_encode($jsApiParameters); 
         } catch (Exception $exc) {
             $output->flag = 1;
             $output->info = 'system exceptions';
@@ -123,7 +131,7 @@ class WechatpayController extends Controller {
     */
     public function GetJsApiParameters($UnifiedOrderResult){
         if(!array_key_exists("appid", $UnifiedOrderResult) || !array_key_exists("prepay_id", $UnifiedOrderResult) || $UnifiedOrderResult['prepay_id'] == ""){
-            return json_encode($UnifiedOrderResult);
+            return $UnifiedOrderResult;
         }
         $jsapi = new WxPayJsApiPay();
         $jsapi->SetAppid($UnifiedOrderResult["appid"]);
@@ -133,7 +141,7 @@ class WechatpayController extends Controller {
         $jsapi->SetPackage("prepay_id=" . $UnifiedOrderResult['prepay_id']);
         $jsapi->SetSignType("MD5");
         $jsapi->SetPaySign($jsapi->MakeSign());
-        $parameters = json_encode($jsapi->GetValues());
+        $parameters = $jsapi->GetValues();
         return $parameters;
     }
 
