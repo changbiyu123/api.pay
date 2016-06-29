@@ -30,11 +30,7 @@ class WechatpayController extends Controller {
         $weixinpub_id = $reqJson['weixinpub_id'];
         $wechatAccount = new WechatAccount();
         $result = $wechatAccount->getByPubId($weixinpub_id);
-        if(!isset($result)){
-            $output->flag = 1;
-            $output->info = '微信号不存在';
-            return $this->renderJsonOutput($output);
-        }else if(!isset($result->getAppId()) || !isset($result->getMchId())){
+        if(!isset($result) || !isset($result->getAppId()) || !isset($result->getMchId())){
             $output->flag = 1;
             $output->info = '缺少商户信息';
             return $this->renderJsonOutput($output);
