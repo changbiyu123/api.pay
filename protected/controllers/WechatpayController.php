@@ -48,7 +48,7 @@ class WechatpayController extends Controller {
         try{
             $order = WxPayApi::unifiedOrder($input);
             $jsApiParameters = $this->GetJsApiParameters($order);
-            if(!is_array($jsApiParameters) || array_key_exists($jsApiParameters, 'return_msg')){//返回信息，如果 return_msg 非空，则表明接口返回错误
+            if(!is_array($jsApiParameters) || array_key_exists('return_msg', $jsApiParameters)){//返回信息，如果 return_msg 非空，则表明接口返回错误
                 $output->flag = 1;
             }else{
                 $output->flag = 0;
