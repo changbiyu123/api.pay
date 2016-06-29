@@ -83,7 +83,7 @@ class WechatpayController extends Controller {
             $result = $wechatAccount->getByPubId($weixinpub_id);
             if(!isset($result)){
                 $output->flag = 1;
-                $output->info = '微信号不存在';
+                $output->info = '缺少商户信息';
                 return $this->renderJsonOutput($output);
             }
             $input->SetAppid($result->getAppId());//公众账号ID
@@ -94,7 +94,7 @@ class WechatpayController extends Controller {
             $input->SetTotal_fee($reqJson['total_fee']);//订单总金额，单位为分
             $input->SetProduct_id($reqJson['product_id']);//trade_type=NATIVE，此参数必传。此id为二维码中包含的商品ID，商户自行定义。
 
-            $input->SetNotify_url("http://".$_SERVER['HTTP_HOST']."/weixinpub/wechatpay/callback");//接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。
+            $input->SetNotify_url("http://".$_SERVER['HTTP_HOST']."/wechatpaynotify/callback");//接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。
             $input->SetTrade_type("NATIVE");//交易类型
 
             $result = WxPayApi::unifiedOrder($input);  
@@ -108,9 +108,8 @@ class WechatpayController extends Controller {
                 $output->info = $err_code_des;
             }else{
                 $output->flag = 1;
-                $output->info = 'system exceptions';
-            }
-            
+                $output->info = 'return exceptions';
+            }            
         } catch (Exception $exc) {
             $output->flag = 1;
             $output->info = 'system exceptions';
