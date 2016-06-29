@@ -30,15 +30,13 @@ class WechatpayController extends Controller {
         $weixinpub_id = $reqJson['weixinpub_id'];
         $wechatAccount = new WechatAccount();
         $result = $wechatAccount->getByPubId($weixinpub_id);
-        $appId = $result->getAppId();
-        $mchId = $result->getMchId();
-        if(!isset($result) || !isset($appId) || !isset($mchId)){
+        if(!isset($result) || !isset($result->getAppId()) || !isset($result->getMchId())){
             $output->flag = 1;
             $output->info = '缺少商户信息';
             return $this->renderJsonOutput($output);
         }
-        $input->SetAppid($appId);//公众账号ID
-        $input->SetMch_id($mchId);//商户号
+        $input->SetAppid($result->getAppId());//公众账号ID
+        $input->SetMch_id($result->getMchId());//商户号
 
         $input->SetBody($reqJson['body']);//商品或支付单简要描述
         $input->SetOut_trade_no($reqJson['out_trade_no']);//商户系统内部的订单号,32个字符内、可包含字母
