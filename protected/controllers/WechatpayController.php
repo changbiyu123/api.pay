@@ -10,6 +10,12 @@ require_once 'protected/config/WxPayApi.php';
 header("Content-type: text/html; charset=utf-8");
 class WechatpayController extends Controller {
     
+    public function actionTest(){
+        $url = "http://".$_SERVER['HTTP_HOST']."/wechatpaynotify/callback";
+        echo $url;
+        Yii::app()->end();
+    }
+    
     
     /**
      * 微信公众号支付
