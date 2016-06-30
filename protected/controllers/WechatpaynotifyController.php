@@ -39,7 +39,7 @@ class WechatpaynotifyController extends Controller {
         $wechatAccount = new WechatAccount();
         $api_key = $wechatAccount->getByAppId($arr['appid'])->getApiKey();
         ksort($arr);//签名步骤一：按字典序排序参数        
-        $string = CommonConfig::ToUrlParams($arr);//格式化参数       
+        $string = $this->ToUrlParams($arr);//格式化参数       
         $string = $string . "&key=".$api_key;//签名步骤二：在string后加入KEY        
         $string = md5($string);//签名步骤三：MD5加密        
         $result = strtoupper($string);//签名步骤四：所有字符转为大写
@@ -78,6 +78,20 @@ class WechatpaynotifyController extends Controller {
         $arr = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);		
         return $arr;
     } 
+    
+    /**
+     * 格式化参数,格式化成url参数
+     */
+    public static function ToUrlParams($arr){
+        $buff = "";
+        foreach ($arr as $k => $v){
+            if($k != "sign" && $v != "" && !is_array($v)){
+                $buff .= $k . "=" . $v . "&";
+            }
+        }
+        $buff = trim($buff, "&");
+        return $buff;
+    }
     
     
 }

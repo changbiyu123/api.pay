@@ -115,7 +115,7 @@ return array(
                 array(
                     'class' => 'CFileLogRoute',
                     'logFile' => 'application.log',
-                    'levels' => 'error, warning',
+                    'levels' => 'info, error, warning',
                 ),
                 array(
                     'class' => 'CFileLogRoute',
