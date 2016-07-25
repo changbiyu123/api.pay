@@ -23,5 +23,9 @@ class HomeController extends Controller {
         $appId = $result->getAppId();
         echo "$appId";
     }
+    
+    /**
+     * rpc demo
+     */
 
 }
