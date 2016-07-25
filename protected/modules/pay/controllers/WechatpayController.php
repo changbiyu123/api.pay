@@ -10,6 +10,10 @@ require_once 'protected/modules/pay/components/WxPayApi.php';
 header("Content-type: text/html; charset=utf-8");
 class WechatpayController extends Controller {
     
+    public function actionTest(){
+        echo "111111111111";
+        Yii::app()->end();
+    }
 
     /**
      * 微信公众号支付
