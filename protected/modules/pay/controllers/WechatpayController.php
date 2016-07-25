@@ -6,17 +6,11 @@
  *
  * @author zhongtw
  */
-require_once 'protected/config/WxPayApi.php';
+require_once 'protected/modules/pay/components/WxPayApi.php';
 header("Content-type: text/html; charset=utf-8");
 class WechatpayController extends Controller {
     
-    public function actionTest(){
-        $url = "http://".$_SERVER['HTTP_HOST']."/wechatpaynotify/callback";
-        echo $url;
-        Yii::app()->end();
-    }
-    
-    
+
     /**
      * 微信公众号支付
      */
@@ -48,7 +42,7 @@ class WechatpayController extends Controller {
         $input->SetOut_trade_no($reqJson['out_trade_no']);//商户系统内部的订单号,32个字符内、可包含字母
         $input->SetTotal_fee($reqJson['total_fee']);//订单总金额，单位为分
         $input->SetOpenid($reqJson['openid']);//trade_type=JSAPI，此参数必传，用户在商户appid下的唯一标识        
-        $input->SetNotify_url("http://".$_SERVER['HTTP_HOST']."/wechatpaynotify/callback");//接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。
+        $input->SetNotify_url("http://".$_SERVER['HTTP_HOST']."/pay/wechatpaynotify/callback");//接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。
         $input->SetTrade_type("JSAPI");//交易类型
         try{
             $order = WxPayApi::unifiedOrder($input);
@@ -100,7 +94,7 @@ class WechatpayController extends Controller {
             $input->SetTotal_fee($reqJson['total_fee']);//订单总金额，单位为分
             $input->SetProduct_id($reqJson['product_id']);//trade_type=NATIVE，此参数必传。此id为二维码中包含的商品ID，商户自行定义。
 
-            $input->SetNotify_url("http://".$_SERVER['HTTP_HOST']."/wechatpaynotify/callback");//接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。
+            $input->SetNotify_url("http://".$_SERVER['HTTP_HOST']."/pay/wechatpaynotify/callback");//接收微信支付异步通知回调地址，通知url必须为直接可访问的url，不能携带参数。
             $input->SetTrade_type("NATIVE");//交易类型
 
             $result = WxPayApi::unifiedOrder($input);  
