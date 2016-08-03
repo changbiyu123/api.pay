@@ -142,6 +142,38 @@ class WechatpayController extends Controller {
         $parameters = $jsapi->GetValues();
         return $parameters;
     }
+    
+    public function actionSendred(){
+        //$url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
+        $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendgroupredpack";
+        
+        $wechatAccount = new WechatAccount();
+        $result = $wechatAccount->getByPubId("myzdztc");
+        
+        $wxRedpack = new WxRedpack();
+        $wxRedpack->SetNonce_str(WxPayApi::getNonceStr());//随机字符串
+        $wxRedpack->SetMch_billno(WxPayApi::getNonceStr(16));//商户订单号
+        $wxRedpack->SetMch_id($result->getMchId());//微信支付分配的商户号
+        $wxRedpack->SetWxappid($result->getAppId());//公众账号appid
+        $wxRedpack->SetSend_name("名医主刀");//商户名称
+        $wxRedpack->SetRe_openid("otqbXviMGjqNS236ynCNWbEf6nXE");//用户openid
+        $wxRedpack->SetTotal_amount("300");//付款金额
+        $wxRedpack->SetTotal_num("3");//红包发放总人数
+        $wxRedpack->SetWishing("红包祝福语");//红包祝福语
+        //$wxRedpack->SetClient_ip($_SERVER['REMOTE_ADDR']);//Ip地址
+        $wxRedpack->SetAmt_type("ALL_RAND");//红包祝福语
+        $wxRedpack->SetAct_name("活动名称");//活动名称
+        $wxRedpack->SetRemark("备注");//备注
+        
+        $wxRedpack->SetSign();//生成签名
+        $xml = $wxRedpack->ToXml();
+        //$startTimeStamp = self::getMillisecond();//请求开始时间
+        //$response = self::postXmlCurl($xml, $url, false, $timeOut);
+        //$result = WxPayResults::Init($response);
+        $result = WxPayCert::curl_post_ssl($url, $xml);
+        echo $result;
+        
+    }
 
     
 }
