@@ -12,13 +12,10 @@ class WxPayCert {
         curl_setopt($ch,CURLOPT_URL,$url);
         curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
         curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,false);
-
         curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
         curl_setopt($ch,CURLOPT_SSLCERT,getcwd().'/protected/modules/pay/components/apiclient_cert.pem');
         curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
         curl_setopt($ch,CURLOPT_SSLKEY,getcwd().'/protected/modules/pay/components/apiclient_key.pem');
-
-        //curl_setopt($ch,CURLOPT_CAINFO,'PEM');
         curl_setopt($ch,CURLOPT_CAINFO,getcwd().'/protected/modules/pay/components/rootca.pem');
 
         if( count($aHeader) >= 1 ){
